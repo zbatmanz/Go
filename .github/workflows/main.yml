@@ -1,23 +1,22 @@
-name: CI
- 
-on: [push, workflow_dispatch]
- 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install ngrok
-        run: |
-          wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
-          unzip ngrok-stable-linux-amd64.zip
-          chmod +x ngrok
+- name: Connect to Linux server and configure ngrok
+  hosts: 159.167.54
+  gather_facts: False
+  remote_user: root
+  become: True
 
-      - name: Connect to ngrok
-      run: ./ngrok authtoken $Env:NGROK_AUTH_TOKEN && ./ngrok http 80
-      
-      env:
-        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-    - name: Enable TS
-    - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
-    - name: Create Tunnel
-      run: .\ngrok\ngrok.exe tcp 3389
+  tasks:
+
+    - name: Install ngrok
+      shell: |
+        cd /tmp
+        wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+        unzip ngrok-stable-linux-amd64.zip
+        sudo mv ngrok /usr/local/bin/ngrok
+
+    - name: Set ngrok authtoken
+      lineinfile:
+        path: ~/.ngrok2/ngrok.yml
+        line: "authtoken: 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c"
+
+    - name: Open TCP tunnel with ngrok
+      shell: "ngrok tcp 22"
