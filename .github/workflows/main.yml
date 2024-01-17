@@ -14,9 +14,9 @@ jobs:
        
    staps:
       - name: Download
-      run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+         run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
     - name: Extract
-      run: Expand-Archive ngrok.zip
+         run: Expand-Archive ngrok.zip
       
       - name: Set ngrok authtoken
           run: .\ngrok\ngrok.exe authtoken 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
