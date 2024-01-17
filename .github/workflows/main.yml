@@ -3,7 +3,7 @@ hosts: 159.167.54
 gather_facts: False
 remote_user: root
 become: True
-
+on: [push, workflow_dispatch]
 tasks:
     - name: Install ngrok
       shell: |
