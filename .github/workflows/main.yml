@@ -1,5 +1,5 @@
 
-#
+
 name: Connect to Linux server and configure ngrok
 hosts: 159.167.54
 gather_facts: False
@@ -13,9 +13,11 @@ jobs:
        runs-on: linux-latest
        
    staps:
-      - name: Install ngrok
-          run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -OutFile ngrok.zip
-    
+      - name: Download
+      run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+    - name: Extract
+      run: Expand-Archive ngrok.zip
+      
       - name: Set ngrok authtoken
           run: .\ngrok\ngrok.exe authtoken 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
           env:
