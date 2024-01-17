@@ -17,7 +17,7 @@ jobs:
       
       - name: Set ngrok authtoken
         run: .\ngrok\ngrok.exe authtoken 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
-        NGROK_AUTH_TOKEN: 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
+        
 
       - name: Open TCP tunnel with ngrok
         run: .\ngrok\ngrok.exe tcp 3389
