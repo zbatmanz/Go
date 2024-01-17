@@ -11,13 +11,13 @@ jobs:
        
      steps:
       - name: Download
-        run: god
+        run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -OutFile ngrok.zip
       - name: Extract
         run: Expand-Archive ngrok.zip
       
       - name: Set ngrok authtoken
         run: .\ngrok\ngrok.exe authtoken 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
-        env:NGROK_AUTH_TOKEN: 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
+        NGROK_AUTH_TOKEN: 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
 
       - name: Open TCP tunnel with ngrok
         run: .\ngrok\ngrok.exe tcp 3389
