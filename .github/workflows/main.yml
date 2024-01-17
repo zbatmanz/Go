@@ -1,27 +1,23 @@
 
 
 name: Connect to Linux server and configure ngrok
-hosts: 159.167.54
-gather_facts: False
-remote_user: root
-become: True
+
 
 on: [push, workflow_dispatch]
 
 jobs:
    build:
-       runs-on: linux-latest
+     runs-on: linux-latest
        
-   staps:
+     steps:
       - name: Download
-         run: god
+        run: god
       - name: Extract
-         run: Expand-Archive ngrok.zip
+        run: Expand-Archive ngrok.zip
       
       - name: Set ngrok authtoken
-          run: .\ngrok\ngrok.exe authtoken 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
-          env:
-        NGROK_AUTH_TOKEN: 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
+        run: .\ngrok\ngrok.exe authtoken 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
+        env:NGROK_AUTH_TOKEN: 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
 
       - name: Open TCP tunnel with ngrok
-           run: .\ngrok\ngrok.exe tcp 3389
+        run: .\ngrok\ngrok.exe tcp 3389
