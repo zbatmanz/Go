@@ -1,23 +1,24 @@
-
-
-name: Connect to Linux server and configure ngrok
-
-
-on: [push, workflow_dispatch]
-
-jobs:
-   build:
-     runs-on: linux-latest
-       
-     steps:
-      - name: Download
-        run: Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -OutFile ngrok.zip
-      - name: Extract
-        run: Expand-Archive ngrok.zip
-      
-      - name: Set ngrok authtoken
-        run: .\ngrok\ngrok.exe authtoken 2audaLEp4eMmq4EcQhGe3RhMy6F_7EnuK4mQarfyeNDBK7v4c
-        
-
-      - name: Open TCP tunnel with ngrok
-        run: .\ngrok\ngrok.exe tcp 3389
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ssh-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ssh
+  template:
+    metadata:
+      labels:
+        app: ssh
+    spec:
+      containers:
+      - name: ssh-container
+        image: your-ssh-image:latest
+        ports:
+        - containerPort: 22
+      - name: ngrok-container
+        image: wernight/ngrok:latest
+        command: ["ngrok", "tcp", "22"]
+        ports:
+        - containerPort: 4040
